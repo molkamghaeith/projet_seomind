@@ -1,0 +1,128 @@
+/* Mode clair (par défaut) */
+.light-mode {
+  --bg-primary: #f5f7fb;
+  --bg-secondary: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  --button-bg: #0f172a;
+  --button-text: #ffffff;
+  --accent: #6366f1;
+}
+
+/* Mode sombre */
+.dark-mode {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  --button-bg: #6366f1;
+  --button-text: #ffffff;
+  --accent: #818cf8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Styles globaux */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Scrollbar pour mode sombre */
+.dark-mode ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+/* Variables du thème clair (par défaut) */
+:root {
+  --bg-primary: #f5f7fb;
+  --bg-secondary: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  --button-bg: #111827;
+  --button-text: #ffffff;
+  --secondary-bg: #e5e7eb;
+}
+
+/* Variables du thème sombre */
+.dark-mode {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  --button-bg: #6366f1;
+  --button-text: #ffffff;
+  --secondary-bg: #334155;
+}
+
+/* Styles globaux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Animation des boutons au survol */
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Scrollbar personnalisée pour le mode sombre */
+.dark-mode ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 5px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
