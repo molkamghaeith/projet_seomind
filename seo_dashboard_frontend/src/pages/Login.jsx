@@ -10,6 +10,7 @@ const SELECTED_SITE_URL_STORAGE_KEY = "selected_dashboard_site_url";
 const SELECTED_SITE_NAME_STORAGE_KEY = "selected_dashboard_site_name";
 const LEGACY_AI_SITE_STORAGE_KEY = "selected_ai_site_id";
 const AI_PAGE_CACHE_KEY = "ai_recommendations_page_cache";
+const GOOGLE_BUTTON_WIDTH = 400;
 
 const clearSelectedSiteStorage = () => {
   localStorage.removeItem(SELECTED_SITE_STORAGE_KEY);
@@ -105,7 +106,7 @@ function Login() {
       window.google.accounts.id.renderButton(googleBtnRef.current, {
         theme: "outline",
         size: "large",
-        width: 360,
+        width: GOOGLE_BUTTON_WIDTH,
         text: "continue_with",
         shape: "rectangular",
       });
@@ -182,14 +183,14 @@ function Login() {
       alignItems: "center",
       justifyContent: "center",
       fontFamily: "'Segoe UI', sans-serif",
-      padding: "28px",
+      padding: "16px",
     },
     container: {
       width: "100%",
       maxWidth: "1180px",
-      minHeight: "720px",
+      minHeight: "min(680px, calc(100vh - 32px))",
       display: "flex",
-      borderRadius: "30px",
+      borderRadius: "24px",
       overflow: "hidden",
       background: "#ffffff",
       border: "1px solid rgba(226, 232, 240, 0.9)",
@@ -200,7 +201,7 @@ function Login() {
       position: "relative",
       background:
         "linear-gradient(145deg, #4f46e5 0%, #6366f1 48%, #7c3aed 100%)",
-      padding: "58px",
+      padding: "40px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
@@ -234,18 +235,18 @@ function Login() {
       zIndex: 1,
     },
     leftTitle: {
-      fontSize: "clamp(42px, 5vw, 58px)",
+      fontSize: "clamp(34px, 4vw, 48px)",
       fontWeight: "800",
-      margin: "0 0 22px",
+      margin: "0 0 16px",
       lineHeight: 1.2,
       letterSpacing: "0",
     },
     leftText: {
       maxWidth: "430px",
-      fontSize: "18px",
+      fontSize: "16px",
       opacity: 0.92,
       margin: 0,
-      lineHeight: 1.7,
+      lineHeight: 1.55,
     },
     leftStats: {
       position: "relative",
@@ -256,8 +257,8 @@ function Login() {
     },
     statBox: {
       minWidth: "132px",
-      padding: "18px",
-      borderRadius: "18px",
+      padding: "14px",
+      borderRadius: "16px",
       background: "rgba(255, 255, 255, 0.13)",
       border: "1px solid rgba(255, 255, 255, 0.18)",
       backdropFilter: "blur(10px)",
@@ -269,30 +270,35 @@ function Login() {
       placeItems: "center",
       borderRadius: "11px",
       background: "rgba(255, 255, 255, 0.18)",
-      marginBottom: "12px",
+      marginBottom: "9px",
     },
     statNum: {
-      fontSize: "24px",
+      fontSize: "21px",
       fontWeight: "800",
       lineHeight: 1,
     },
     statLabel: {
       fontSize: "13px",
       opacity: 0.82,
-      marginTop: "8px",
+      marginTop: "6px",
     },
     rightPanel: {
       flex: "1",
       background: "var(--bg-secondary)",
-      padding: "62px 58px",
+      padding: "34px 52px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
     },
     formShell: {
       width: "100%",
-      maxWidth: "520px",
+      maxWidth: `${GOOGLE_BUTTON_WIDTH}px`,
       margin: "0 auto",
+    },
+    googleButton: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
     },
     formBadge: {
       width: "fit-content",
@@ -305,30 +311,30 @@ function Login() {
       color: "#4f46e5",
       fontSize: "13px",
       fontWeight: 700,
-      marginBottom: "18px",
+      marginBottom: "12px",
     },
     title: {
-      fontSize: "38px",
+      fontSize: "32px",
       fontWeight: "800",
-      margin: "0 0 10px",
+      margin: "0 0 8px",
       color: "var(--text-primary)",
       letterSpacing: "0",
     },
     subtitle: {
       fontSize: "16px",
       color: "var(--text-secondary)",
-      margin: "0 0 34px",
-      lineHeight: 1.6,
+      margin: "0 0 20px",
+      lineHeight: 1.45,
     },
     inputGroup: {
-      marginBottom: "18px",
+      marginBottom: "12px",
     },
     label: {
       display: "block",
       fontSize: "14px",
       fontWeight: "700",
       color: "var(--text-primary)",
-      marginBottom: "8px",
+      marginBottom: "6px",
     },
     inputWrapper: {
       display: "flex",
@@ -349,7 +355,7 @@ function Login() {
       flex: 1,
       border: "none",
       outline: "none",
-      padding: "17px 0",
+      padding: "13px 0",
       fontSize: "16px",
       background: "transparent",
       color: "var(--text-primary)",
@@ -365,17 +371,17 @@ function Login() {
     },
     submitBtn: {
       width: "100%",
-      minHeight: "58px",
+      minHeight: "50px",
       padding: "0 18px",
       background: "linear-gradient(135deg, #6366f1, #4f46e5)",
       color: "#fff",
       border: "none",
-      borderRadius: "15px",
+      borderRadius: "13px",
       fontSize: "16px",
       fontWeight: "800",
       cursor: "pointer",
       transition: "all 0.2s",
-      marginTop: "14px",
+      marginTop: "8px",
       boxShadow: "0 16px 30px rgba(79, 70, 229, 0.24)",
     },
     submitBtnDisabled: {
@@ -386,7 +392,7 @@ function Login() {
       display: "flex",
       alignItems: "center",
       gap: "12px",
-      margin: "26px 0 22px",
+      margin: "18px 0 16px",
     },
     dividerLine: {
       flex: 1,
@@ -418,7 +424,7 @@ function Login() {
     },
     forgotLink: {
       textAlign: "center",
-      marginTop: "18px",
+      marginTop: "12px",
       fontSize: "15px",
     },
     linkText: {
@@ -491,6 +497,17 @@ function Login() {
           {errorMessage && !showActivationInfo && (
             <div style={styles.errorBox}>{errorMessage}</div>
           )}
+
+          <div
+            ref={googleBtnRef}
+            style={styles.googleButton}
+          />
+
+          <div style={styles.divider}>
+            <div style={styles.dividerLine} />
+            <span style={styles.dividerText}>ou</span>
+            <div style={styles.dividerLine} />
+          </div>
 
           <form onSubmit={handleSubmit} autoComplete="off">
             <div style={styles.inputGroup}>
@@ -567,17 +584,6 @@ function Login() {
               {isLoading ? "Connexion..." : "Se connecter"}
             </button>
           </form>
-
-          <div style={styles.divider}>
-            <div style={styles.dividerLine} />
-            <span style={styles.dividerText}>ou</span>
-            <div style={styles.dividerLine} />
-          </div>
-
-          <div
-            ref={googleBtnRef}
-            style={{ display: "flex", justifyContent: "center" }}
-          />
 
           <div style={styles.forgotLink}>
             <Link to="/forgot-password" style={styles.linkText}>

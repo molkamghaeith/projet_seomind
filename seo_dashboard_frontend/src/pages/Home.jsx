@@ -99,9 +99,7 @@ export default function Home() {
         </div>
 
         <h2 style={styles.title}>
-          Votre assistant SEO intelligent
-          <br />
-          pour plus de visibilit&eacute;
+          Votre plateforme intelligente d&rsquo;analyse SEO
         </h2>
 
         <Link to="/login" style={styles.button} onClick={handleStart}>

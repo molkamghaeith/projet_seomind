@@ -238,7 +238,7 @@ const styles = {
     border: "1px solid var(--border)",
     borderRadius: "12px",
     padding: "14px",
-    marginBottom: "20px",
+    marginBottom: "30px",
     color: "var(--text-primary)",
   },
   actionRow: {
@@ -269,6 +269,7 @@ const styles = {
   adminSection: {
     width: "100%",
     maxWidth: "1180px",
+    marginTop: "280px",
   },
 };
 
