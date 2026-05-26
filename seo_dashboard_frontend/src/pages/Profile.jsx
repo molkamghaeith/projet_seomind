@@ -269,7 +269,7 @@ const styles = {
   adminSection: {
     width: "100%",
     maxWidth: "1180px",
-    marginTop: "280px",
+    marginTop: "12S0px",
   },
 };
 

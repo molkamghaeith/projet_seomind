@@ -18,6 +18,18 @@ const redirectToLogin = () => {
 
 api.interceptors.request.use(
   (config) => {
+    const requestUrl = config.url || "";
+    const isAuthRequest =
+      requestUrl.includes("/auth/login/") ||
+      requestUrl.includes("/auth/google/") ||
+      requestUrl.includes("/auth/register/") ||
+      requestUrl.includes("/auth/forgot-password/") ||
+      requestUrl.includes("/auth/reset-password-confirm/");
+
+    if (isAuthRequest) {
+      return config;
+    }
+
     const token = localStorage.getItem("access");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

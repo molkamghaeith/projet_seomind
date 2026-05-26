@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SeoMind - Presentation organisee</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #58657a;
+      --blue: #1d4ed8;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --red: #be123c;
+      --paper: #f6f8fb;
+      --panel: #ffffff;
+      --line: #dbe4ef;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 52px 68px 54px;
+      background:
+        linear-gradient(90deg, rgba(29, 78, 216, .08), transparent 46%),
+        linear-gradient(180deg, #fff, #f4f7fb);
+    }
+
+    .slide.active {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 28px;
+    }
+
+    .cover {
+      background:
+        linear-gradient(135deg, rgba(29, 78, 216, .12), rgba(15, 118, 110, .08)),
+        #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+    }
+
+    .part {
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(54px, 7vw, 90px);
+      max-width: 960px;
+    }
+
+    h2 {
+      font-size: clamp(34px, 4.3vw, 58px);
+      max-width: 1040px;
+    }
+
+    .subtitle {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 27px;
+      line-height: 1.35;
+      max-width: 900px;
+    }
+
+    .content {
+      display: grid;
+      align-content: center;
+      gap: 24px;
+    }
+
+    .split {
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+      align-items: center;
+      gap: 34px;
+    }
+
+    .three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 30px;
+      display: grid;
+      gap: 13px;
+      font-size: 27px;
+      line-height: 1.28;
+    }
+
+    li::marker { color: var(--blue); }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 27px;
+      line-height: 1.36;
+      max-width: 1000px;
+    }
+
+    .statement {
+      color: var(--ink);
+      font-size: 36px;
+      font-weight: 780;
+      line-height: 1.22;
+      max-width: 1080px;
+    }
+
+    .box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 16px 38px rgba(23, 32, 51, .08);
+    }
+
+    .box h3 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    .box p {
+      font-size: 22px;
+      line-height: 1.36;
+    }
+
+    .problem {
+      background: #fff1f2;
+      border-left: 8px solid var(--red);
+      border-radius: 8px;
+      padding: 22px 26px;
+      color: var(--ink);
+      font-size: 34px;
+      line-height: 1.25;
+      font-weight: 780;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .node {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 8px solid var(--blue);
+      border-radius: 8px;
+      min-height: 122px;
+      padding: 18px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 780;
+      box-shadow: 0 16px 34px rgba(23, 32, 51, .08);
+    }
+
+    .node:nth-child(2) { border-top-color: var(--teal); }
+    .node:nth-child(3) { border-top-color: var(--green); }
+    .node:nth-child(4) { border-top-color: var(--amber); }
+    .node:nth-child(5) { border-top-color: var(--red); }
+
+    .steps {
+      counter-reset: item;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .step {
+      counter-increment: item;
+      position: relative;
+      min-height: 145px;
+      padding: 58px 18px 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      font-size: 21px;
+      line-height: 1.25;
+      font-weight: 740;
+      box-shadow: 0 14px 30px rgba(23, 32, 51, .08);
+    }
+
+    .step::before {
+      content: counter(item);
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--blue);
+      font-size: 17px;
+      font-weight: 850;
+    }
+
+    .table {
+      display: grid;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(23, 32, 51, .08);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+    }
+
+    .row + .row { border-top: 1px solid var(--line); }
+
+    .cell {
+      padding: 18px 22px;
+      font-size: 23px;
+      line-height: 1.28;
+    }
+
+    .cell:first-child {
+      font-weight: 800;
+      color: var(--blue);
+      background: #eff6ff;
+      border-right: 1px solid var(--line);
+    }
+
+    .image {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 22px 52px rgba(23, 32, 51, .14);
+    }
+
+    .image img {
+      width: 100%;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    code {
+      font-family: "Cascadia Code", Consolas, monospace;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 5px;
+      width: 0;
+      background: var(--blue);
+      z-index: 10;
+      transition: width .2s ease;
+    }
+
+    .controls {
+      position: fixed;
+      right: 22px;
+      bottom: 18px;
+      display: flex;
+      gap: 8px;
+      z-index: 11;
+    }
+
+    button {
+      width: 44px;
+      height: 38px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 8px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(23, 32, 51, .13);
+    }
+
+    @media (max-width: 960px) {
+      body { overflow: auto; }
+      .deck { height: auto; }
+      .slide {
+        position: relative;
+        min-height: 100vh;
+        padding: 32px 22px 72px;
+      }
+      .slide.active { display: grid; }
+      .split, .three, .two, .flow, .steps, .row {
+        grid-template-columns: 1fr;
+      }
+      h1 { font-size: 46px; }
+      h2 { font-size: 34px; }
+      p, ul { font-size: 22px; }
+      .controls { display: none; }
+    }
+
+    @media print {
+      body { overflow: visible; background: #fff; }
+      .deck { height: auto; }
+      .slide {
+        display: grid !important;
+        position: relative;
+        min-height: 100vh;
+        page-break-after: always;
+      }
+      .controls, .progress { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck">
+    <section class="slide cover active">
+      <div></div>
+      <div class="content">
+        <div>
+          <div class="part">Soutenance universitaire</div>
+          <h1>SeoMind</h1>
+          <p class="subtitle">Dashboard SEO intelligent pour analyser, recommander et automatiser les optimisations d'un site web.</p>
+        </div>
+      </div>
+      <div class="footer"><span>React + Django REST Framework</span><span>1 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">1. Introduction</div><h2>Contexte general</h2></div></header>
+      <div class="content split">
+        <ul>
+          <li>Le SEO influence directement la visibilite d'un site web.</li>
+          <li>Les donnees sont dispersees entre plusieurs outils.</li>
+          <li>L'utilisateur doit comprendre les indicateurs et choisir les corrections prioritaires.</li>
+        </ul>
+        <div class="image"><img src="seo_dashboard_frontend/src/assets/seo.png" alt="SeoMind"></div>
+      </div>
+      <div class="footer"><span>Contexte du projet</span><span>2 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">1. Introduction</div><h2>Problematique</h2></div></header>
+      <div class="content">
+        <div class="problem">Comment centraliser les donnees SEO d'un site web, les analyser automatiquement et proposer des recommandations claires, priorisees et actionnables ?</div>
+        <div class="two">
+          <div class="box"><h3>Besoin metier</h3><p>Transformer les donnees SEO en decisions simples et exploitables.</p></div>
+          <div class="box"><h3>Besoin technique</h3><p>Connecter plusieurs APIs et automatiser une partie du processus de correction.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Problematique principale</span><span>3 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">1. Introduction</div><h2>Objectifs du projet</h2></div></header>
+      <div class="content two">
+        <div class="box">
+          <h3>Objectifs fonctionnels</h3>
+          <p>Authentification, connexion Google, gestion des sites, dashboard, score SEO, recommandations, exports et GitHub.</p>
+        </div>
+        <div class="box">
+          <h3>Objectifs techniques</h3>
+          <p>API REST securisee, frontend dynamique, integration d'APIs externes, analyse HTML et NLP.</p>
+        </div>
+      </div>
+      <div class="footer"><span>Objectifs</span><span>4 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">2. Analyse du besoin</div><h2>Acteurs du systeme</h2></div></header>
+      <div class="content three">
+        <div class="box"><h3>Utilisateur</h3><p>Ajoute ses sites, consulte les donnees SEO et applique les recommandations.</p></div>
+        <div class="box"><h3>Administrateur</h3><p>Gere les utilisateurs, les roles et l'etat des comptes.</p></div>
+        <div class="box"><h3>Services externes</h3><p>Google Analytics, Google Search Console et GitHub.</p></div>
+      </div>
+      <div class="footer"><span>Acteurs</span><span>5 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">2. Analyse du besoin</div><h2>Parcours utilisateur principal</h2></div></header>
+      <div class="content">
+        <div class="steps">
+          <div class="step">Connexion ou creation du compte</div>
+          <div class="step">Connexion Google</div>
+          <div class="step">Ajout ou selection du site</div>
+          <div class="step">Consultation du dashboard</div>
+          <div class="step">Recommandations et correction</div>
+        </div>
+        <p>Le parcours accompagne l'utilisateur de la collecte des donnees jusqu'a l'action technique.</p>
+      </div>
+      <div class="footer"><span>Parcours utilisateur</span><span>6 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">3. Conception</div><h2>Architecture globale</h2></div></header>
+      <div class="content">
+        <div class="flow">
+          <div class="node">Utilisateur</div>
+          <div class="node">Frontend React</div>
+          <div class="node">API Django REST</div>
+          <div class="node">Google APIs</div>
+          <div class="node">GitHub API</div>
+        </div>
+        <p>Le backend centralise les appels externes, les permissions, les tokens et la logique metier.</p>
+      </div>
+      <div class="footer"><span>Architecture logicielle</span><span>7 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">3. Conception</div><h2>Organisation backend</h2></div></header>
+      <div class="content two">
+        <div class="box"><h3>accounts</h3><p>Inscription, connexion, profil, Google auth, administration et gestion utilisateur.</p></div>
+        <div class="box"><h3>analytics_app</h3><p>Sites, donnees Google, score SEO, recommandations, NLP, exports et GitHub.</p></div>
+      </div>
+      <div class="footer"><span>Django apps</span><span>8 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">3. Conception</div><h2>Organisation frontend</h2></div></header>
+      <div class="content two">
+        <div class="box"><h3>Pages</h3><p>Home, Login, Register, Profile, Dashboard, AIRecommendations, AdminDashboard.</p></div>
+        <div class="box"><h3>Composants</h3><p>Navbar, ProtectedRoute, PeriodSelector, SEORecommendations et GitHubPRPanel.</p></div>
+      </div>
+      <div class="footer"><span>React pages et composants</span><span>9 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">3. Conception</div><h2>Modele de donnees</h2></div></header>
+      <div class="content">
+        <div class="table">
+          <div class="row"><div class="cell">User</div><div class="cell">Utilisateur de l'application.</div></div>
+          <div class="row"><div class="cell">Website</div><div class="cell">Site web rattache a un utilisateur.</div></div>
+          <div class="row"><div class="cell">Analysis</div><div class="cell">Historique des metriques et scores SEO.</div></div>
+          <div class="row"><div class="cell">SEORecommendation</div><div class="cell">Recommandation priorisee avec impact et difficulte.</div></div>
+          <div class="row"><div class="cell">Tokens</div><div class="cell">Tokens Google et GitHub associes a l'utilisateur.</div></div>
+        </div>
+      </div>
+      <div class="footer"><span>Donnees principales</span><span>10 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Authentification et securite</h2></div></header>
+      <div class="content">
+        <ul>
+          <li>Authentification avec JWT.</li>
+          <li>Tokens <code>access</code> et <code>refresh</code>.</li>
+          <li>Rafraichissement automatique du token.</li>
+          <li>Routes protegees cote frontend.</li>
+          <li>Permissions et verification de propriete cote backend.</li>
+          <li>OAuth pour Google et GitHub.</li>
+        </ul>
+      </div>
+      <div class="footer"><span>Securite</span><span>11 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Integration Google</h2></div></header>
+      <div class="content two">
+        <div class="box"><h3>Google Analytics</h3><p>Utilisateurs, sessions, pages vues, trafic organique et pages principales.</p></div>
+        <div class="box"><h3>Search Console</h3><p>Clics, impressions, CTR, position moyenne et mots-cles.</p></div>
+      </div>
+      <div class="footer"><span>Sources de donnees SEO</span><span>12 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Dashboard SEO</h2></div></header>
+      <div class="content split">
+        <ul>
+          <li>Statistiques de trafic.</li>
+          <li>Donnees Search Console.</li>
+          <li>Graphiques d'evolution.</li>
+          <li>Mots-cles et top pages.</li>
+          <li>Exports CSV et PDF.</li>
+        </ul>
+        <div class="image"><img src="seo_dashboard_frontend/src/assets/dashboard.png" alt="Dashboard SeoMind"></div>
+      </div>
+      <div class="footer"><span>Dashboard</span><span>13 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Score SEO</h2></div></header>
+      <div class="content">
+        <div class="table">
+          <div class="row"><div class="cell">Technique</div><div class="cell">Balises, structure HTML, mobile et performance.</div></div>
+          <div class="row"><div class="cell">Contenu</div><div class="cell">Richesse textuelle, titres et organisation du contenu.</div></div>
+          <div class="row"><div class="cell">Visibilite</div><div class="cell">Clics, impressions, CTR et position moyenne.</div></div>
+          <div class="row"><div class="cell">Trafic</div><div class="cell">Utilisateurs, sessions et pages vues.</div></div>
+          <div class="row"><div class="cell">Global</div><div class="cell">Synthese generale exprimee sur 100.</div></div>
+        </div>
+      </div>
+      <div class="footer"><span>Sous-scores SEO</span><span>14 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Recommandations et NLP</h2></div></header>
+      <div class="content">
+        <ul>
+          <li>Analyse des donnees Google et du contenu HTML.</li>
+          <li>Detection des problemes SEO : title, meta, images, contenu, CTR.</li>
+          <li>Priorisation par impact et difficulte.</li>
+          <li>Analyse semantique avec spaCy et TF-IDF lorsque disponible.</li>
+          <li>Hugging Face existe comme module optionnel.</li>
+        </ul>
+        <p>La solution repose sur des regles SEO, des donnees et du NLP, pas sur une IA generative complete.</p>
+      </div>
+      <div class="footer"><span>Recommandations intelligentes</span><span>15 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">4. Realisation</div><h2>Automatisation GitHub</h2></div></header>
+      <div class="content">
+        <div class="steps">
+          <div class="step">Connexion GitHub</div>
+          <div class="step">Choix du depot</div>
+          <div class="step">Choix de la branche</div>
+          <div class="step">Generation de correction</div>
+          <div class="step">Pull Request</div>
+        </div>
+        <p>Cette partie relie la recommandation SEO au processus de developpement.</p>
+      </div>
+      <div class="footer"><span>GitHub API</span><span>16 / 18</span></div>
+    </section>
+
+    <section class="slide">
+      <header><div><div class="part">5. Demo et resultats</div><h2>Scenario de demonstration</h2></div></header>
+      <div class="content">
+        <div class="steps">
+          <div class="step">Connexion</div>
+          <div class="step">Dashboard</div>
+          <div class="step">Score SEO</div>
+          <div class="step">Recommandations</div>
+          <div class="step">GitHub</div>
+        </div>
+        <p>La demonstration suit le parcours complet : analyser, comprendre, recommander et appliquer.</p>
+      </div>
+      <div class="footer"><span>Demo</span><span>17 / 18</span></div>
+    </section>
+
+    <section class="slide cover">
+      <div></div>
+      <div class="content">
+        <div>
+          <div class="part">6. Conclusion</div>
+          <p class="statement">SeoMind transforme des donnees SEO complexes en recommandations simples, priorisees et actionnables.</p>
+          <p class="subtitle">Perspectives : IA generative, PostgreSQL, tests, CI/CD, securite des tokens et historique detaille des scores.</p>
+        </div>
+      </div>
+      <div class="footer"><span>Merci pour votre attention</span><span>18 / 18</span></div>
+    </section>
+  </main>
+
+  <div class="controls">
+    <button type="button" id="prev" aria-label="Slide precedente">‹</button>
+    <button type="button" id="next" aria-label="Slide suivante">›</button>
+  </div>
+  <div class="progress" id="progress"></div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const progress = document.getElementById("progress");
+    let current = 0;
+
+    function show(index) {
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === current));
+      progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+      window.location.hash = `slide-${current + 1}`;
+    }
+
+    document.getElementById("prev").addEventListener("click", () => show(current - 1));
+    document.getElementById("next").addEventListener("click", () => show(current + 1));
+
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        show(current + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        show(current - 1);
+      }
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+
+    const match = window.location.hash.match(/slide-(\d+)/);
+    show(match ? Number(match[1]) - 1 : 0);
+  </script>
+</body>
+</html>
